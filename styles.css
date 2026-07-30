@@ -379,6 +379,33 @@ a {
     object-fit: cover;
 }
 
+.about-image {
+    position: relative;
+}
+
+.uc-profile-card {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--bg-light);
+    transition: var(--transition);
+    max-width: 320px;
+}
+
+.uc-profile-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+.uc-profile-img {
+    width: 100%;
+    border-radius: var(--radius-sm);
+}
+
 .about-text {
     font-size: 1.05rem;
     color: var(--text-secondary);
