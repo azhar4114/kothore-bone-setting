@@ -381,19 +381,20 @@ a {
 
 .about-image {
     position: relative;
+    overflow: visible;
 }
 
 .uc-profile-card {
     position: absolute;
-    bottom: -20px;
-    right: -20px;
+    bottom: -15px;
+    right: -15px;
     background: var(--bg-white);
-    border-radius: var(--radius-md);
-    padding: 8px;
+    border-radius: var(--radius-sm);
+    padding: 6px;
     box-shadow: var(--shadow-lg);
     border: 2px solid var(--bg-light);
     transition: var(--transition);
-    max-width: 320px;
+    width: 200px;
 }
 
 .uc-profile-card:hover {
@@ -403,7 +404,9 @@ a {
 
 .uc-profile-img {
     width: 100%;
-    border-radius: var(--radius-sm);
+    height: auto;
+    border-radius: 4px;
+    display: block;
 }
 
 .about-text {
