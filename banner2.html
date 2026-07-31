@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Banner Design Option 2 - Kothoor Bone Setting Centre</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .instructions {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .instructions code {
+            background: #334155;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #fbbf24;
+        }
+
+        /* Banner Container - Option 2: Vibrant Yellow & Navy Theme */
+        .banner {
+            width: 1600px;
+            height: 800px;
+            background: #fffbeb;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            border: 6px solid #fbbf24;
+        }
+
+        /* Top Yellow Attention Header */
+        .top-stripe {
+            background: #f59e0b;
+            color: #000000;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.9rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .top-badge {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.8rem;
+        }
+
+        /* Main Content Layout */
+        .banner-body {
+            display: flex;
+            padding: 30px 50px;
+            gap: 40px;
+            align-items: center;
+            flex: 1;
+        }
+
+        /* Left Column: UC Profile Front and Center */
+        .left-col {
+            flex: 1.3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 20px;
+            border: 4px solid #1e40af;
+            box-shadow: 0 15px 35px rgba(30, 64, 175, 0.15);
+        }
+
+        .uc-header {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #1e40af;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-img-box {
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            background: #fff;
+            padding: 8px;
+            border: 2px solid #cbd5e1;
+        }
+
+        .profile-img-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        /* Right Column: Catchy Text */
+        .right-col {
+            flex: 1.4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .catchy-head {
+            font-size: 3.6rem;
+            font-weight: 900;
+            color: #1e3a8a;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .shop-sub {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #b45309;
+            margin-bottom: 20px;
+        }
+
+        .badges-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .badge-box {
+            background: #1e40af;
+            color: #ffffff;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .services-row {
+            font-size: 1.6rem;
+            color: #1e293b;
+            font-weight: 800;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Bottom Dark Blue Stripe */
+        .bottom-stripe {
+            background: #1e3a8a;
+            color: #ffffff;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .phone-box {
+            background: #f59e0b;
+            color: #000000;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 2.2rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qr-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .qr-box img {
+            width: 75px;
+            height: 75px;
+            background: #fff;
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .url-text {
+            color: #fef08a;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .walkin-tag {
+            background: #16a34a;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="instructions">
+        💡 <strong>Flex Banner Design Option 2 (Vibrant Daylight Theme)</strong><br>
+        Open this page in full screen, or press <code>Cmd + Shift + 4</code> on Mac to take a high-res screenshot for printing.
+    </div>
+
+    <div class="banner" id="flexBanner2">
+        <!-- Top Stripe -->
+        <div class="top-stripe">
+            <div>★ 4.85 RATED URBAN COMPANY EXPERT • 469+ JOBS COMPLETED</div>
+            <div class="top-badge">SINCE 1992</div>
+        </div>
+
+        <!-- Banner Body -->
+        <div class="banner-body">
+            <!-- Left Column: UC Card Highlight -->
+            <div class="left-col">
+                <div class="uc-header">VERIFIED THERAPIST PROFILE</div>
+                <div class="profile-img-box">
+                    <img src="assets/imran_uc_profile.jpg" alt="Mohd Imran Urban Company Profile">
+                </div>
+            </div>
+
+            <!-- Right Column: Catchy Text & Shop Name -->
+            <div class="right-col">
+                <h1 class="catchy-head">EXPERT PAIN RELIEF & BONE SETTING</h1>
+                <div class="shop-sub">Kothoor Bone Setting Centre</div>
+
+                <div class="badges-row">
+                    <div class="badge-box">★ 4.7 Google Rated</div>
+                    <div class="badge-box">34+ Years Experience</div>
+                </div>
+
+                <div class="services-row">
+                    <span>🦴 Bone Setting</span> • 
+                    <span>💪 Posture Alignment</span> • 
+                    <span>💆 Pain Therapy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Stripe -->
+        <div class="bottom-stripe">
+            <div class="phone-box">
+                📞 +91 8801284081
+            </div>
+
+            <div class="qr-box">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://azhar4114.github.io/kothore-bone-setting/" alt="QR Code">
+                <div>
+                    <div style="font-size: 1.1rem; font-weight: 900; color: #fff;">SCAN TO VISIT WEBSITE</div>
+                    <div class="url-text">azhar4114.github.io/kothore-bone-setting</div>
+                </div>
+            </div>
+
+            <div class="walkin-tag">
+                WALK-INS WELCOME
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
