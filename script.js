@@ -214,6 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
+    });
+
     // ========== GOOGLE ANALYTICS EVENT TRACKING ==========
     document.querySelectorAll('a[href*="wa.me"]').forEach(button => {
         button.addEventListener('click', () => {
