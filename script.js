@@ -214,6 +214,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
+    // ========== GOOGLE ANALYTICS EVENT TRACKING ==========
+    document.querySelectorAll('a[href*="wa.me"]').forEach(button => {
+        button.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+                gtag('event', 'click_whatsapp', {
+                    'event_category': 'Engagement',
+                    'event_label': 'WhatsApp Booking Click'
+                });
+            }
+        });
+    });
+
+    document.querySelectorAll('a[href^="tel:"]').forEach(button => {
+        button.addEventListener('click', () => {
+            if (typeof gtag === 'function') {
+                gtag('event', 'click_call', {
+                    'event_category': 'Engagement',
+                    'event_label': 'Phone Call Click'
+                });
+            }
+        });
     });
 
 });
