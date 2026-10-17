@@ -1,6 +1,6 @@
 /* ========================================
-   KOTHOOR BONE SETTING CENTRE
-   Interactive Script
+   KOTHOOR WELLNESS & BONE SETTING CENTRE
+   Interactive Script (Conversion & Booking)
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,63 +10,72 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.getElementById('navLinks');
     const body = document.body;
 
-    // Create overlay element
-    const overlay = document.createElement('div');
-    overlay.classList.add('nav-overlay');
-    body.appendChild(overlay);
+    if (hamburger && navLinks) {
+        // Create overlay element
+        const overlay = document.createElement('div');
+        overlay.classList.add('nav-overlay');
+        body.appendChild(overlay);
 
-    function toggleMenu() {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        overlay.classList.toggle('active');
-        body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-    }
-
-    function closeMenu() {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-        overlay.classList.remove('active');
-        body.style.overflow = '';
-    }
-
-    hamburger.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', closeMenu);
-
-    // Close menu when a nav link is clicked
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
-
-    // ========== NAVBAR SCROLL EFFECT ==========
-    const navbar = document.getElementById('navbar');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+        function toggleMenu() {
+            const isActive = hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            overlay.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+            body.style.overflow = isActive ? 'hidden' : '';
         }
-    });
+
+        function closeMenu() {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Close menu when a nav link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    }
+
+    // ========== NAVBAR SCROLL SHADOW ==========
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+    }
 
     // ========== SCROLL ANIMATIONS (Intersection Observer) ==========
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    if ('IntersectionObserver' in window && animatedElements.length > 0) {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.1
+        };
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -80px 0px',
-        threshold: 0.1
-    };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    animatedElements.forEach(el => observer.observe(el));
+        animatedElements.forEach(el => observer.observe(el));
+    } else {
+        // Fallback for older browsers
+        animatedElements.forEach(el => el.classList.add('visible'));
+    }
 
     // ========== ANIMATED COUNTERS ==========
     const statNumbers = document.querySelectorAll('.stat-number');
@@ -78,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statNumbers.forEach(stat => {
             const target = parseFloat(stat.getAttribute('data-target'));
             const isDecimal = stat.hasAttribute('data-decimal');
-            const duration = 2000;
+            const duration = 1800;
             const startTime = performance.now();
 
             function updateCounter(currentTime) {
@@ -111,9 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
         countersAnimated = true;
     }
 
-    // Observe the stats row to trigger counters
     const statsRow = document.querySelector('.stats-row');
-    if (statsRow) {
+    if (statsRow && 'IntersectionObserver' in window) {
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -121,9 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     counterObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.3 });
 
         counterObserver.observe(statsRow);
+    } else {
+        animateCounters();
     }
 
     // ========== TESTIMONIAL CAROUSEL ==========
@@ -136,11 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentSlide = 0;
         let autoSlideInterval;
 
+        // Clear any existing dots
+        dotsContainer.innerHTML = '';
+
         // Create dots
         cards.forEach((_, index) => {
             const dot = document.createElement('button');
             dot.classList.add('carousel-dot');
-            dot.setAttribute('aria-label', `Go to review ${index + 1}`);
+            dot.setAttribute('aria-label', `Go to review slide ${index + 1}`);
             if (index === 0) dot.classList.add('active');
             dot.addEventListener('click', () => goToSlide(index));
             dotsContainer.appendChild(dot);
@@ -161,11 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function startAutoSlide() {
-            autoSlideInterval = setInterval(nextSlide, 5000);
+            stopAutoSlide();
+            autoSlideInterval = setInterval(nextSlide, 6000);
         }
 
         function stopAutoSlide() {
-            clearInterval(autoSlideInterval);
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+            }
         }
 
         // Start auto-slide
@@ -188,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             touchEndX = e.changedTouches[0].screenX;
             const diff = touchStartX - touchEndX;
 
-            if (Math.abs(diff) > 50) {
+            if (Math.abs(diff) > 40) {
                 if (diff > 0 && currentSlide < totalSlides - 1) {
                     goToSlide(currentSlide + 1);
                 } else if (diff < 0 && currentSlide > 0) {
@@ -199,11 +215,137 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
-    // ========== SMOOTH SCROLL FOR NAV LINKS ==========
+    // ========== FAQ ACCORDION INTERACTIVITY ==========
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        if (questionBtn) {
+            questionBtn.addEventListener('click', () => {
+                const isCurrentlyActive = item.classList.contains('active');
+                
+                // Close other open FAQ items for a clean accordion effect
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        const otherBtn = otherItem.querySelector('.faq-question');
+                        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Toggle selected item
+                if (isCurrentlyActive) {
+                    item.classList.remove('active');
+                    questionBtn.setAttribute('aria-expanded', 'false');
+                } else {
+                    item.classList.add('active');
+                    questionBtn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        }
+    });
+
+    // ========== APPOINTMENT ENQUIRY FORM LOGIC ==========
+    const enquiryForm = document.getElementById('enquiryForm');
+    const preferredDateInput = document.getElementById('preferredDate');
+    const centreSelect = document.getElementById('centreSelect');
+    const serviceSelect = document.getElementById('serviceSelect');
+    const serviceNotice = document.getElementById('serviceNotice');
+
+    // Set minimum selectable date to today
+    if (preferredDateInput) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        preferredDateInput.setAttribute('min', todayStr);
+    }
+
+    // Dynamic hint when choosing centre
+    if (centreSelect && serviceNotice) {
+        centreSelect.addEventListener('change', () => {
+            const selectedVal = centreSelect.value;
+            if (selectedVal.includes('Hasmathpet')) {
+                serviceNotice.textContent = '✨ Hasmathpet offers Sports Recovery Massage & Steam Bath facilities, in addition to Deep Tissue Bodywork and Bone Setting.';
+                serviceNotice.style.color = '#15803d';
+            } else if (selectedVal.includes('Rasoolpura')) {
+                serviceNotice.textContent = '📍 Rasoolpura offers Deep Tissue Relaxation, Targeted Neck/Shoulder Relief, and Bone Setting. (Sports Massage & Steam Bath are at Hasmathpet).';
+                serviceNotice.style.color = '#0a3d62';
+            } else {
+                serviceNotice.textContent = '';
+            }
+        });
+    }
+
+    // Form submission -> construct WhatsApp message
+    if (enquiryForm) {
+        enquiryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('clientName').value.trim();
+            const phone = document.getElementById('clientPhone').value.trim();
+            const centre = document.getElementById('centreSelect').value;
+            const service = document.getElementById('serviceSelect').value;
+            const date = document.getElementById('preferredDate').value;
+            const time = document.getElementById('preferredTime').value;
+            const notes = document.getElementById('clientNotes').value.trim();
+
+            if (!name) {
+                alert('Please enter your full name.');
+                document.getElementById('clientName').focus();
+                return;
+            }
+
+            if (!phone) {
+                alert('Please enter your phone/WhatsApp number.');
+                document.getElementById('clientPhone').focus();
+                return;
+            }
+
+            if (!centre) {
+                alert('Please select your preferred centre (Hasmathpet or Rasoolpura).');
+                document.getElementById('centreSelect').focus();
+                return;
+            }
+
+            if (!service) {
+                alert('Please select the service you are interested in.');
+                document.getElementById('serviceSelect').focus();
+                return;
+            }
+
+            // Construct readable, pre-filled WhatsApp message
+            let message = `Hi Kothoor Centre, I would like to enquire about an appointment:\n\n`;
+            message += `• Name: ${name}\n`;
+            message += `• Phone: ${phone}\n`;
+            message += `• Preferred Centre: ${centre}\n`;
+            message += `• Requested Service: ${service}\n`;
+            message += `• Preferred Date: ${date ? date : 'Earliest Available'}\n`;
+            message += `• Preferred Time: ${time}\n`;
+            if (notes) {
+                message += `• Note / Query: ${notes}\n`;
+            }
+            message += `\nPlease let me know your availability and current session pricing. Thank you!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const waUrl = `https://wa.me/918801284081?text=${encodedMessage}`;
+
+            // Track GA4 event
+            if (typeof gtag === 'function') {
+                gtag('event', 'generate_lead', {
+                    'event_category': 'Booking',
+                    'event_label': 'WhatsApp Appointment Form Submission',
+                    'service_name': service,
+                    'centre_location': centre
+                });
+            }
+
+            // Open WhatsApp directly
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+        });
+    }
+
+    // ========== SMOOTH SCROLL FOR NAV & INTERNAL ANCHOR LINKS ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+            if (targetId === '#' || targetId === '') return;
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
@@ -222,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof gtag === 'function') {
                 gtag('event', 'click_whatsapp', {
                     'event_category': 'Engagement',
-                    'event_label': 'WhatsApp Booking Click'
+                    'event_label': button.innerText.trim() || 'WhatsApp Booking Click'
                 });
             }
         });
@@ -233,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof gtag === 'function') {
                 gtag('event', 'click_call', {
                     'event_category': 'Engagement',
-                    'event_label': 'Phone Call Click'
+                    'event_label': 'Phone Call Dial'
                 });
             }
         });
